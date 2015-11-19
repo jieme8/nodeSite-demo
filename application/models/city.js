@@ -1,14 +1,15 @@
 var request = require("request");
-
-function dxl(){
+var q = require("q");
+function city(){
 
 }
 
 
-dxl.prototype.page = function(){
+city.prototype.jiehunList = function(){
+
 	return new Promise(function(resolve){
 
-		request("http://sh.daoxila.com/",function(err,d){
+		request("http://n.daoxila.com/jsonp/?act=dengji",function(err,d){
 			if(err){
 				resolve(d);
 			}else{
