@@ -8,9 +8,12 @@ exports.index = function(req, res) {
 	var index = new indexViewModel();
 	//console.log(aa.demo1())
 
-	index.demo1().then(function(d){
-		//console.log("----------index--------------" + d);
-		res.render("index",{"obj":d.body});
+	index.demo1().then(function(resolve){
+		console.log("----------index--------------" + resolve.body);
+		var data = {
+			"html":resolve.body
+		}
+		res.render("index",data);
 	})
 
 	
