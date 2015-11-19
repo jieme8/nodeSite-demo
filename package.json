@@ -16,6 +16,7 @@
     "log4js": "^0.6.26",
     "moment": "~2.9.0",
     "morgan": "~1.5.1",
+    "q": "^1.4.1",
     "request": "^2.54.0",
     "serve-favicon": "~2.2.0",
     "underscore": "~1.8.2"
