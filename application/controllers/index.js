@@ -1,10 +1,7 @@
-
-'use strict';
-var indexViewModel = require('../viewModels/index');
-
-
+var q = require("q");
 
 exports.index = function(req, res) {
+	var indexViewModel = require('../viewModels/index');
 	var index = new indexViewModel();
 	//console.log(aa.demo1())
 
@@ -18,3 +15,26 @@ exports.index = function(req, res) {
 
 	
 }
+
+
+exports.q = function(req, res) {
+	var qViewModel = require('../viewModels/q');
+
+	
+	qViewModel.page().then(function(resolve){
+		console.log(resolve)
+		res.render("q",resolve);
+	})
+	/*
+	qViewModel.page().then(function(resolve){
+		console.log("----------index--------------" + resolve.body);
+		var data = {
+			"html":resolve.body
+		}
+		res.render("index",data);
+	})
+
+	*/
+}
+
+
