@@ -1,6 +1,7 @@
 var express       = require('express');             // express web框架
 var logger        = require('morgan');              // 请求日志纪录
 var cookieParser  = require('cookie-parser');       // cookie格式化
+var session       = require('express-session');     // session的使用
 var favicon       = require('serve-favicon');       // 网站图标
 var bodyParser    = require('body-parser');         // 请求参数格式化
 var path          = require('path');                // 系统路径模块
@@ -15,12 +16,14 @@ var hbs           = require('hbs');                 //模版引擎
 
 
 
-var app = express();
-var server = http.createServer(app);
-var index = require('./routes/index.js'); //路由文件
+var app         = express();
+var server      = http.createServer(app);
+var headers     = require('./application/lib/headers');
+var index       = require('./routes/index.js');             //路由文件
 
 //global.serverConf = require('./conf/conf');         // 全局变量 服务器配置
 
+/*模版配置*/
 
 app.set('view engine', 'html');  // 用hbs作为模版引擎
 app.engine('html', hbs.__express);//配置html指向hbs
@@ -36,11 +39,10 @@ hbs.localsAsTemplateData(app);//设置模版全局变量
 app.locals.hbsVar1 = "hbsVar1"; //模版全局变量
 
 
-
-
 app.enable('view cache');  // 模板缓存
 app.enable('trust proxy');  // 代理
 app.disable('page data json');  // 页面显示json格式
+
 
 //require('http').globalAgent.maxSockets = Infinity;
 
@@ -52,6 +54,13 @@ app.use(bodyParser.urlencoded({
     extended: false
 }));
 app.use(cookieParser());
+// 设置 session 的可选参数
+app.use(session({
+    resave:false,
+    saveUninitialized: true,
+    secret: 'dasfdsgdfgsdfhgfhdgfhdgfhdfghdgfhg',   // 建议使用 128 个字符的随机字符串
+    cookie: { maxAge: 24*60*60 * 1000 }
+}));
 
 
 // 从mem-session服务器获取session
@@ -65,6 +74,9 @@ app.use(dxlLibCommon.evoConfig);
 app.use(dxlUtilWWW.setPublic2);
 app.use(dxlUtilWWW.setResponseHeader);
 */
+
+//头文件重写
+app.use(headers.head);
 
 //默认路由
 app.use('/', index);

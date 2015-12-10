@@ -1,23 +1,8 @@
-var cityModel = require('../models/city');
 var qModels = require("../models/q");
 var q = require("q")
 
 var qViewModel = {};
-/*
-qViewModel.page = function() {
-	
-	var deferred = q.defer();
-	var def = "";
-	qModels.qq().then(function(a){
-		def += "aaaa"
-		//return "aaaa";
-	})
 
-	return deferred.promise;
-
-};
-
-*/
 
 qViewModel.page = function() {
 	var deferred = q.defer();
@@ -26,9 +11,7 @@ qViewModel.page = function() {
 		deferred.resolve({"id":str1 + "----------" + str2})
 	})
 
-
 	return deferred.promise;
-
 
 };
 
